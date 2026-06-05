@@ -1,38 +1,40 @@
-# Small Language Models in Practice
-### by Haji Gul
+# Small Language Models in Practice — Lecture Notes
 
-A compact, code-first book on building, fine-tuning, retrieving, quantizing, and
-deploying small language models on your own hardware — plus matching Jupyter
-lecture notes and the full LaTeX source.
+Jupyter notebook companion to the book **_Small Language Models in Practice_** by
+**Haji Gul**. One notebook per chapter, in book order, **code-first** with short
+markdown notes between cells.
 
-## What's inside
+## Contents
+- `00_Index.ipynb` — clickable overview and reading order
+- `Chapter_01` … `Chapter_08` — one notebook per chapter
+
+## Chapters
+1. **Why Small Language Models** — when small beats large; the local stack; first generation.
+2. **Running Models Locally** — transformers vs. Ollama; tokenization; sampling; streaming.
+3. **Fine-Tuning with LoRA** — data prep, adapters, training, saving/reusing the adapter.
+4. **Retrieval-Augmented Generation** — chunk, embed, LanceDB, retrieve, grounded answers.
+5. **Agents and Tool Use** — the tool-calling loop from scratch, then with smolagents.
+6. **Quantization for Small Hardware** — 4-bit with bitsandbytes; GGUF for llama.cpp/Ollama.
+7. **Serving and Deployment** — FastAPI endpoint with streaming; Ollama OpenAI-compatible API.
+8. **Capstone** — quantized model + RAG + tools + serving in one local document assistant.
+
+## Getting started
+```bash
+pip install jupyterlab
+jupyter lab        # open 00_Index.ipynb first
 ```
-Small_Language_Models_in_Practice/
-├── Small_Language_Models_in_Practice_Haji_Gul.pdf   ← the finished book (read this)
-├── LaTeX_Source/                                    ← rebuild or edit the book
-│   ├── main.tex, slmstyle.sty, make_notes.py
-│   ├── chapters/00_preface.tex … 08_capstone.tex
-│   └── README.md  (build instructions)
-└── Lecture_Notes/                                   ← run the code as you read
-    ├── 00_Index.ipynb
-    ├── Chapter_01 … Chapter_08 (.ipynb)
-    └── README.md
+
+Base environment used across chapters:
+```bash
+pip install transformers datasets accelerate torch
+pip install peft bitsandbytes               # ch 3, 6
+pip install lancedb sentence-transformers   # ch 4, 8
+pip install smolagents                       # ch 5
+pip install fastapi uvicorn openai           # ch 7, 8
 ```
 
-## The 8 chapters
-1. Why Small Language Models
-2. Running Models Locally (transformers + Ollama)
-3. Fine-Tuning with LoRA
-4. Retrieval-Augmented Generation (LanceDB)
-5. Agents and Tool Use
-6. Quantization for Small Hardware (bitsandbytes, GGUF)
-7. Serving and Deployment (FastAPI, streaming, vLLM)
-8. Capstone: a full local document assistant tying it all together
-
-## How to use it
-- **Read** the PDF.
-- **Run** the matching notebook in `Lecture_Notes/` alongside each chapter.
-- **Rebuild/edit** via `LaTeX_Source/` (`pdflatex main.tex`, run twice).
-
-Model and dataset IDs refer to public hubs and may change over time; verify
-current names before running. For personal/educational use.
+## Notes
+- Run chapters in order the first time — later notebooks reuse earlier concepts.
+- Model and dataset IDs on the Hugging Face Hub drift; verify before running.
+- Heavy cells (fine-tuning, 4-bit loading, serving) may need a GPU and large downloads.
+- These notebooks mirror the book's code listings exactly so you can run as you read.
